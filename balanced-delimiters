@@ -1,0 +1,97 @@
+/* ============================= PROBLEM =============================== */
+
+*/ This was the first excercise of my Programming 2# course. 
+   This course was focused on introducing the students to the ADT concept,
+   how to define and implement them.
+   
+   In this excercise the goal was to create a function that if given a
+   string, would return true iff the delimiters (if any) of the string
+   were properly balanced. 
+   
+   A string is balanced iff given any closure delimiter in the string, there 
+   must exist a delimiter previous to it and it must be its correspoing 
+   opening delimiter. We also say that an empty string or a string without 
+   delimiters, those strings are balanced.
+   
+   To resolve this problem we were given a mapping and stack definition 
+   (as well as its implementation, since this was our first task after all).
+   I'm not including the code realted to the ADTs since both the implementation
+   and definition are the same as you could find anywhere online. */
+  
+/* =============================== SOLUTION ============================ */
+
+*/ To begin with, we can easily see how the only infomation we really care about 
+   are the delimiters, so we will ignore any other element in the string 'exp'.
+   
+   The first thing we will do is create a mapping 'parejas' to associate each 
+   opening delimiter (key) with its corresponding closure (value). 
+   
+   Now we create a stack 'p', and when we find a delimiter in the string
+   we will add it to 'p'. if we find a closure delimiter, the definition 
+   of balance given above tells us the last element added to the 'p' MUST be 
+   its opening delimiter. 
+   
+   We check if this condition is respected or not- if true: we keep looking for
+   delimiters in the string, if false: the string is not balanced, and we can
+   safely return true as result.
+   
+   We will use a while loop with a boolean variable 'cond' to help us keep track 
+   of what I just descried on the last paragraph. */
+
+/* ============================= IMPLEMENTATION ========================== */
+
+// Returns a mapping asociating each delimiter with its correspoding closure.
+
+static mapping_t construr_map() {
+  mapping_t parejas = crear_map();
+  parejas = asociar('<','>', parejas);
+  parejas = asociar('(',')', parejas);
+  parejas = asociar('{','}', parejas);
+  parejas = asociar('[',']', parejas);
+  return parejas;
+}
+
+bool es_balanceado(char exp[MAX_EXP], int n){
+  // - 'p' empty stack to contain the delimiters.
+  // - 'parejas' the mapping described above.
+  // * 'cond' will be our return variable.
+  pila_t p = crear_pila();
+  mapping_t parejas = construr_map();
+  int i = 0;
+  bool cond = true;
+  
+  while (cond && (i <= n-1)){
+	// if we find an opening delimiter (key), we add it to the stack.
+    if (!es_llena_pila(p) && es_clave(exp[i], parejas)){
+      p = apilar(exp[i], p);
+      i++;
+      
+     /* if it's a closing delimiter (value), then the last deimiter added
+        had to be its correspoing opening deimiter.
+   
+        If T: everything is correct, we keep iterating the string.
+        If F: delimiters not balanced.
+     */
+    } else if (es_valor(exp[i], parejas)){
+        if((!es_vacia_pila(p)) && ((valor(tope(p),parejas)) == exp[i])){
+          p = desapilar(p);
+          i++;
+	    }
+        else {
+		  cond = false;
+        }
+      }
+    else {
+	  i++;
+	}
+  }
+  
+  cond = es_vacia_pila(p) && cond;
+  
+  liberar_pila(p);
+  liberar_map(parejas);
+  
+  return cond;
+}  
+  
+  
