@@ -1,6 +1,6 @@
 /* ============================= PROBLEM =============================== */
 
-*/ This was the first exercise of my Programming 2# course. 
+*/ This was the first major exercise of my 'Programming 2#' course. 
    This course was focused on introducing the students to the ADT concept,
    how to define and implement them.
    
@@ -11,17 +11,17 @@
    A string is balanced iff given any closure delimiter in the string, there 
    must exist a delimiter previous to it and it must be its corresponding 
    opening delimiter. We also say that an empty string or a string without 
-   delimiters, those strings are balanced.
+   delimiters are balanced.
    
    To resolve this problem we were given a mapping and stack definition 
-   (as well as its implementation, since this was our first task after all).
+   (as well as its implementation, since this was our introduction to the subject).
    I'm not including the code related to the ADTs since both the implementation
    and definition are the same as you could find anywhere online. */
   
 /* =============================== SOLUTION ============================ */
 
 */ To begin with, we can easily see how the only information we really care about 
-   are the delimiters, so we will ignore any other element in the string 'exp'.
+   are the delimiters, so we will ignore any other element in the string.
    
    The first thing we will do is create a mapping 'parejas' to associate each 
    opening delimiter (key) with its corresponding closure (value). 
@@ -33,10 +33,10 @@
    
    We check if this condition is respected or not- if true: we keep looking for
    delimiters in the string, if false: the string is not balanced, and we can
-   safely return true as result.
+   safely return false as result.
    
    We will use a while loop with a boolean variable 'cond' to help us keep track 
-   of what I just described on the last paragraph. */
+   of what I just described in the last paragraph. */
 
 /* ============================= IMPLEMENTATION ========================== */
 
