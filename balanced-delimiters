@@ -1,26 +1,26 @@
 /* ============================= PROBLEM =============================== */
 
-*/ This was the first excercise of my Programming 2# course. 
+*/ This was the first exercise of my Programming 2# course. 
    This course was focused on introducing the students to the ADT concept,
    how to define and implement them.
    
-   In this excercise the goal was to create a function that if given a
+   In this exercise the goal was to create a function that if given a
    string, would return true iff the delimiters (if any) of the string
    were properly balanced. 
    
    A string is balanced iff given any closure delimiter in the string, there 
-   must exist a delimiter previous to it and it must be its correspoing 
+   must exist a delimiter previous to it and it must be its corresponding 
    opening delimiter. We also say that an empty string or a string without 
    delimiters, those strings are balanced.
    
    To resolve this problem we were given a mapping and stack definition 
    (as well as its implementation, since this was our first task after all).
-   I'm not including the code realted to the ADTs since both the implementation
+   I'm not including the code related to the ADTs since both the implementation
    and definition are the same as you could find anywhere online. */
   
 /* =============================== SOLUTION ============================ */
 
-*/ To begin with, we can easily see how the only infomation we really care about 
+*/ To begin with, we can easily see how the only information we really care about 
    are the delimiters, so we will ignore any other element in the string 'exp'.
    
    The first thing we will do is create a mapping 'parejas' to associate each 
@@ -36,11 +36,11 @@
    safely return true as result.
    
    We will use a while loop with a boolean variable 'cond' to help us keep track 
-   of what I just descried on the last paragraph. */
+   of what I just described on the last paragraph. */
 
 /* ============================= IMPLEMENTATION ========================== */
 
-// Returns a mapping asociating each delimiter with its correspoding closure.
+// Returns a mapping associating each delimiter with its corresponding closure.
 
 static mapping_t construr_map() {
   mapping_t parejas = crear_map();
@@ -66,8 +66,8 @@ bool es_balanceado(char exp[MAX_EXP], int n){
       p = apilar(exp[i], p);
       i++;
       
-     /* if it's a closing delimiter (value), then the last deimiter added
-        had to be its correspoing opening deimiter.
+     /* if it's a closing delimiter (value), then the last delimiter added
+        had to be its corresponding opening delimiter.
    
         If T: everything is correct, we keep iterating the string.
         If F: delimiters not balanced.
@@ -75,15 +75,11 @@ bool es_balanceado(char exp[MAX_EXP], int n){
     } else if (es_valor(exp[i], parejas)){
         if((!es_vacia_pila(p)) && ((valor(tope(p),parejas)) == exp[i])){
           p = desapilar(p);
-          i++;
-	    }
-        else {
-		  cond = false;
-        }
-      }
-    else {
-	  i++;
-	}
+          i++; 
+      } else
+          cond = false;
+    } else
+        i++;
   }
   
   cond = es_vacia_pila(p) && cond;
@@ -92,6 +88,4 @@ bool es_balanceado(char exp[MAX_EXP], int n){
   liberar_map(parejas);
   
   return cond;
-}  
-  
-  
+};
