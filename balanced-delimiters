@@ -8,7 +8,7 @@
    string, would return true iff the delimiters (if any) of the string
    were properly balanced. 
    
-   A string is balanced iff given any closure delimiter in the string, there 
+   A string is balanced iff given any closing delimiter in the string, there 
    must exist a delimiter previous to it and it must be its corresponding 
    opening delimiter. We also say that an empty string or a string without 
    delimiters are balanced.
@@ -24,10 +24,10 @@
    are the delimiters, so we will ignore any other element in the string.
    
    The first thing we will do is create a mapping 'parejas' to associate each 
-   opening delimiter (key) with its corresponding closure (value). 
+   opening delimiter (key) with its corresponding closing (value). 
    
    Now we create a stack 'p', and when we find a delimiter in the string
-   we will add it to 'p'. if we find a closure delimiter, the definition 
+   we will add it to 'p'. if we find a closing delimiter, the definition 
    of balance given above tells us the last element added to the 'p' MUST be 
    its opening delimiter. 
    
